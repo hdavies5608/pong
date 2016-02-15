@@ -12,8 +12,8 @@ int main()
 {
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Pong!");
 
-	Paddle playerOne(50, WINDOW_HEIGHT / 2, 20, 100);
-	Paddle playerTwo(WINDOW_WIDTH - 50, WINDOW_HEIGHT / 2, 20, 100);
+	Paddle playerOne(50, WINDOW_HEIGHT / 2, 20, 100, false);
+	Paddle playerTwo(WINDOW_WIDTH - 50, WINDOW_HEIGHT / 2, 20, 100, true);
 	Ball ball(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 15, sf::Vector2f(1, 0));
 
 	sf::Font font;
@@ -32,9 +32,10 @@ int main()
 			scores[i].setPosition((WINDOW_WIDTH / 2) + (WINDOW_WIDTH / 4), 100);
 	}
 
+	sf::Clock deltaTimeClock;
+	float deltaTime = 0;
 	while (window.isOpen())
 	{
-
 		//Update scores
 		scores[0].setString(std::to_string(playerOne.score));
 		scores[1].setString(std::to_string(playerTwo.score));
@@ -46,6 +47,10 @@ int main()
 				window.close();
 		}
 
+		playerOne.update(deltaTime);
+		playerTwo.update(deltaTime);
+		ball.update(deltaTime);
+
 		window.clear();
 		window.draw(scores[0]);
 		window.draw(scores[1]);
@@ -53,6 +58,8 @@ int main()
 		window.draw(playerTwo.paddle);
 		window.draw(ball.ball);
 		window.display();
+
+		deltaTime = deltaTimeClock.restart().asSeconds();
 	}
 
 	return 0;
