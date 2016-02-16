@@ -14,7 +14,7 @@ int main()
 
 	Paddle playerOne(50, WINDOW_HEIGHT / 2, 20, 100, false);
 	Paddle playerTwo(WINDOW_WIDTH - 50, WINDOW_HEIGHT / 2, 20, 100, true);
-	Ball ball(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 15, sf::Vector2f(1, 0));
+	Ball ball(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 15, sf::Vector2f(1, 1));
 
 	sf::Font font;
 	assert (font.loadFromFile("RobotoMono.ttf"));
@@ -47,9 +47,9 @@ int main()
 				window.close();
 		}
 
-		playerOne.update(deltaTime);
-		playerTwo.update(deltaTime);
-		ball.update(deltaTime);
+		playerOne.update(deltaTime, WINDOW_HEIGHT);
+		playerTwo.update(deltaTime, WINDOW_HEIGHT);
+		ball.update(deltaTime, WINDOW_WIDTH, WINDOW_HEIGHT, playerOne, playerTwo);
 
 		window.clear();
 		window.draw(scores[0]);
