@@ -2,7 +2,7 @@
 
 #include <math.h>
 #include <cmath> 
-Ball::Ball(int xPos, int yPos, int radius, sf::Vector2f direction)
+Ball::Ball(float xPos, float yPos, float radius, sf::Vector2f direction)
 {
 	ball.setFillColor(sf::Color::White);
 	ball.setPosition(xPos, yPos);
@@ -17,15 +17,25 @@ void Ball::update(float deltaTime, int winWidth, int winHeight, Paddle &paddleOn
 	m_direction = m_direction / magnitude;
 
 
-	if (paddleOne.paddle.getGlobalBounds().intersects(ball.getGlobalBounds()) || paddleTwo.paddle.getGlobalBounds().intersects(ball.getGlobalBounds()))
+	if (paddleOne.paddle.getGlobalBounds().intersects(ball.getGlobalBounds()) || paddleTwo.paddle.getGlobalBounds().intersects(ball.getGlobalBounds()) && !m_hasCollidedPaddle)
 	{
 		m_direction.x = -m_direction.x;
+		m_hasCollidedPaddle = true;
+	}
+	else 
+	{
+		m_hasCollidedPaddle = false;
 	}
 
 
-	if (ball.getPosition().y - ball.getRadius() <= 0 || ball.getPosition().y + ball.getRadius() >= winHeight)
+	if (ball.getPosition().y - ball.getRadius() <= 0 || ball.getPosition().y + ball.getRadius() >= winHeight && !m_hasCollidedWall)
 	{
 		m_direction.y = -m_direction.y;
+		m_hasCollidedWall = true;
+	}
+	else
+	{
+		m_hasCollidedWall = false;
 	}
 
 	if (ball.getPosition().x <= 0)

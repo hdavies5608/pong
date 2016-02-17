@@ -6,8 +6,8 @@ class Paddle
 {
 public:
 	sf::RectangleShape paddle;
-	Paddle(int xPos, int yPos, int width, int height, bool AIEnabled, sf::Keyboard::Key upKey = sf::Keyboard::W, sf::Keyboard::Key downKey = sf::Keyboard::S);
-	void update(float deltaTime, int winHeight);
+	Paddle(float xPos, float yPos, float width, float height, bool AIEnabled, sf::Keyboard::Key upKey = sf::Keyboard::W, sf::Keyboard::Key downKey = sf::Keyboard::S);
+	void update(float deltaTime, int winHeight, float ballYPos = 0);
 	int score = 0;
 	~Paddle();
 private:
