@@ -10,6 +10,7 @@ public:
 	sf::CircleShape ball;
 	Ball(float xPos, float yPos, float radius, sf::Vector2f direction);
 	void update(float deltaTime, int winWidth, int winHeight, Paddle &paddleOne, Paddle &paddleTwo);
+	void setPosition(sf::Vector2f position) { ball.setPosition(position); };
 	~Ball();
 private:
 	sf::Vector2f m_direction;
